@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
-
     public Rigidbody platformRigidbody;
     public Transform[] platformPositions;
     public float platformSpeed;
@@ -49,5 +48,4 @@ public class PlatformController : MonoBehaviour
         yield return new WaitForSeconds(time);
         moveToTheNext = true;
     }
-
 }

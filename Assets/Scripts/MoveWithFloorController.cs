@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveWithFloorController : MonoBehaviour
 {
-
     private CharacterController player;
 
     public string groundName;
@@ -12,8 +11,13 @@ public class MoveWithFloorController : MonoBehaviour
     public string lastGroundName;
     public Vector3 lastGroundPosition;
 
+    public Vector3 originOffset;
+    public float factorDivision = 4.2f;
+
     Quaternion actualRot;
     Quaternion lastRot;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +26,7 @@ public class MoveWithFloorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (player.isGrounded)
@@ -30,7 +34,7 @@ public class MoveWithFloorController : MonoBehaviour
             // RaycastHit hit;
             // if (Physics.Raycast(transform.position, Vector3.down, out hit))
             RaycastHit hit;
-            if (Physics.SphereCast(transform.position, player.height / 4.2f, -transform.up, out hit))
+            if (Physics.SphereCast(transform.position + originOffset, player.radius / factorDivision, -transform.up, out hit))
             {
                 GameObject groundedIn = hit.collider.gameObject;
                 groundName = groundedIn.name;
@@ -55,16 +59,16 @@ public class MoveWithFloorController : MonoBehaviour
         }
         else
         {
-           lastGroundName = null;
-           lastGroundPosition = Vector3.zero;
+            lastGroundName = null;
+            lastGroundPosition = Vector3.zero;
         }
 
     }
 
     private void OnDrawGizmos()
     {
-       player = GetComponent<CharacterController>();
-       Gizmos.DrawWireSphere(transform.position, player.height / 4.2f);
+        player = GetComponent<CharacterController>();
+        Gizmos.DrawWireSphere(transform.position + originOffset, player.radius / factorDivision);
     }
 
 }
