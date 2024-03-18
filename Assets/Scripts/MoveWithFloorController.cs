@@ -22,7 +22,7 @@ public class MoveWithFloorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (player.isGrounded)
@@ -65,6 +65,11 @@ public class MoveWithFloorController : MonoBehaviour
     {
        player = GetComponent<CharacterController>();
        Gizmos.DrawWireSphere(transform.position, player.height / 4.2f);
+    }
+
+    void Awake()
+    {
+        Application.targetFrameRate = 60;
     }
 
 }
